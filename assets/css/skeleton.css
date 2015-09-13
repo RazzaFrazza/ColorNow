@@ -344,13 +344,9 @@ there.
 */
 
 
-/* Larger than mobile */
 @media (min-width: 1px) and (max-width: 768px) {
   h1{
       font-size:2em
-  }
- .screen{
-  width:60%
   }
   .wrapper{
   margin-top:125px
@@ -358,6 +354,12 @@ there.
   .blue div {
     height: 1px;
     width: 1px
+  }
+}
+
+@media (min-width: 355px) and (max-width: 768px) {
+ .screen{
+  width:60%
   }
 }
 

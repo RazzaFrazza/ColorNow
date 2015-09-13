@@ -48,12 +48,6 @@
                     <li><a class="right font clearLeft" href="#">Change Block Size</a></li>
                 </ul>
             </div>
-         <!-- <div class="buttonBar">
-            <button class="leftTwo font">Color</button>
-            <button class="left font">Clear</button>
-            <button class="right2 font clearLeft">Space</button>
-            <button class="right font clearLeft">Size</button>
-         </div> -->
          <h1 class="font">ColorNow</h1>
             <div class="screen">
                 <div class="inner">
@@ -79,6 +73,7 @@ $(document).ready(function() {
 
             $( window ).resize(function(){
 
+
                 if($( window ).width() <= 768) {
 
                         createMobileGrid();
@@ -94,15 +89,28 @@ $(document).ready(function() {
 
             });
 
-
+var usedAColorAlready = false;
 
     function changeColor(color) {
-
-
-        $(".blue").on("mousemove", function() {
-
+        console.log("Ran First Color Function.");
+        $(".blue").on("click", function() {
             $(this).addClass("black");
             $(".black").css({
+                "background-color": color,
+                "border": "0"
+            });
+        });
+
+        usedAColorAlready = true;
+
+    }
+
+     function useAnotherColor(color) {
+        console.log("Ran second Color function.");
+        $(".blue").on("click", function() {
+
+            $(this).addClass("anotherColor");
+            $(".anotherColor").css({
                 "background-color": color,
                 "border": "0"
             });
@@ -152,12 +160,13 @@ $(document).ready(function() {
     createGrid();
 
     $(".left").on("click", function() {
-        $(this).parent().find(".black").removeClass("black");
+        $("html").find(".black").removeClass("black");
+        $("html").find(".anotherColor").removeClass("anotherColor");
         $(".blue").css({
-            "background-color": "#adcc51",
+            "background-color": "",
             "border": "1px solid #fff"
         });
-        alert("Shake Shake Shake!");
+        alert("Colors have been removed.");
     });
 
 
@@ -173,9 +182,12 @@ $(document).ready(function() {
 
     $(".leftTwo").on("click", function() {
         var newColor = prompt("You're catching on! What color do you want?");
-
-        changeColor(newColor);
-
+        if(usedAColorAlready === false){
+            changeColor(newColor);
+        }
+        else {
+            useAnotherColor(newColor);
+        }
     });
 
 
@@ -200,8 +212,8 @@ $(document).ready(function() {
 if (window.matchMedia('(min-width: 1px) and (max-width: 768px').matches)
 
 {
-
-    var buttonLeft2 = "<li><a class='leftTwo font' href='#''>Change Color</a></li>";
+    var usedAMobileColorAlready = false;
+    var buttonLeft2 = "<li><a class='leftTwo font' href='#''>Choose A Color</a></li>";
     var buttonLeft = "<li><a class='left font' href='#'>Clear Color</a></li>";
     var buttonRight2 = "<li><a class='right2 font clearLeft' href='#'>Change Block Spacing</a></li>";
     var buttonRight = "<li><a class='right font clearLeft' href='#'>Change Block Size</a></li>";
@@ -219,14 +231,26 @@ if (window.matchMedia('(min-width: 1px) and (max-width: 768px').matches)
 /* Mobile Functions */
 
     function changeMobileColor(color) {
-
-
-        $(".blue").on("mousemove", function() {
+        $(".blue").on("click", function() {
             $(this).addClass("black");
             $(".black").css({
                 "background-color": color,
                 "border": "0"
             });
+         usedAMobileColorAlready = true;
+         console.log("First Mobile Color Function Complete.");
+        });
+
+    }
+
+    function useAnotherMobileColor(anotherMobileColor) {
+        $(".blue").on("click", function() {
+            $(this).addClass("anotherColor");
+            $(".anotherColor").css({
+                "background-color": anotherMobileColor,
+                "border": "0"
+            });
+            console.log("Second Mobile Color Function Complete.");
         });
 
     }
@@ -274,12 +298,12 @@ if (window.matchMedia('(min-width: 1px) and (max-width: 768px').matches)
     createMobileGrid();
 
     $(".left").on("click", function() {
-        $(this).parent().find(".black").removeClass("black");
+        $( html ).find(".black").removeClass("black");
+        $( html ).find(".anotherColor").removeClass("anotherColor");
         $(".blue").css({
-            "background-color": "#adcc51",
             "border": "1px solid #fff"
         });
-        alert("Shake Shake Shake!");
+        alert("Colors have been removed.");
     });
 
 
@@ -293,10 +317,17 @@ if (window.matchMedia('(min-width: 1px) and (max-width: 768px').matches)
     });
 
 
-    $(".leftTwo").on("click", function() {
-        var newColor = prompt("You're catching on! What color do you want?");
+    $(".leftTwo").on("click", function() { 
 
-        changeMobileColor(newColor);
+        if(usedAMobileColorAlready === true) {
+            var anotherMobileColor = prompt("You're catching on! What color do you want?");
+            useAnotherMobileColor(anotherMobileColor);
+        }
+
+        else { 
+            var newColor = prompt("You're catching on! What color do you want?");
+            changeMobileColor(newColor);
+        }
 
     });
 
