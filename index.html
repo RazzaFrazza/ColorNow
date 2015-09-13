@@ -5,31 +5,28 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Razzakun's Etch A Sketch</title>
-  <meta name="Razzakun's Version of Project Odin's Etch A Sketch Project" content="">
-  <meta name="Razzakun" content="">
-  <!-- Jquery
-  ---------------------------------------------------->
-  <script src="jquery-1.11.3.js"></script>
-
+  <title>ColorNow</title>
+  <meta name="description" content="ColorNow is created with Skeleton, Jquery & is a great app that offers an interesting way to kill some time.">
+  <meta name="keywords" content="ColorNow, colornow, skeleton, jQuery, Javascript, app, Matt Shaver">
+  <!-- Javascript
+  -------------------------------------------------- -->
+  <script src="assets/js/jQuery.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
-
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-
+  <link rel="stylesheet" href="assets/css/bootstrap.css">
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/skeleton.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
-  
-
+  <link rel="icon" type="image/png" href="assets/images/favicon.gif">
 </head>
 <body>
 
@@ -37,9 +34,32 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="one-columns" style="margin-top: 25%">
-        
-      </div>
+      <div class="one-columns">
+        <div class="wrapper">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="font">Options</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a class="leftTwo font" href="#">Choose A Color</a></li>
+                    <li><a class="left font" href="#">Clear Color</a></li>
+                    <li><a class="right2 font clearLeft" href="#">Change Block Spacing</a></li>
+                    <li><a class="right font clearLeft" href="#">Change Block Size</a></li>
+                </ul>
+            </div>
+         <!-- <div class="buttonBar">
+            <button class="leftTwo font">Color</button>
+            <button class="left font">Clear</button>
+            <button class="right2 font clearLeft">Space</button>
+            <button class="right font clearLeft">Size</button>
+         </div> -->
+         <h1 class="font">ColorNow</h1>
+            <div class="screen">
+                <div class="inner">
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 
@@ -51,39 +71,35 @@
 <script>
 $(document).ready(function() {
 
-    /* Create Variables */
-
-    var size = 17;
-    var area = 500;
-    var divWrapper = "<div class='wrapper'></div>";
-    var divScreen = "<div class='screen'></div>";
-    var divInner = "<div class= 'inner'></div>";
-    var h1 = "<h1 class = 'font'>Welcome to Razzakun's Etch A Sketch</h1>";
-    var buttonLeft = "<button class='left font'>Clear</button>";
-    var buttonLeft2 = "<button class='leftTwo font'>Color</button>";
-    var buttonRight = "<button class='right font clearLeft'>Size</button>";
-    var buttonRight2 = "<button class='right2 font clearLeft'>Space</button>";
-
-    /*Create Html*/
-    $('.one-columns').prepend(divWrapper);
-    $('.wrapper').append(divScreen);
-    $('.screen').prepend(divInner);
-    $('.wrapper').prepend(buttonRight);
-    $('.wrapper').prepend(buttonRight2);
-    $('.wrapper').prepend(buttonLeft);
-    $('.wrapper').prepend(buttonLeft2);
-    $('.wrapper').prepend(h1);
-
-
-
+    var buttonLeft2 = "<li><a class='leftTwo font' href='#''>Choose A Color</a></li>";
+    var buttonLeft =  "<li><a class='left font' href='#'>Clear Color</a></li>";
+    var buttonRight2 = "<li><a class='right2 font clearLeft' href='#'>Change Block Spacing</a></li>";
+    var buttonRight = "<li><a class='right font clearLeft' href='#'>Change Block Size</a></li>";
     /* Create Functions */
+
+            $( window ).resize(function(){
+
+                if($( window ).width() <= 768) {
+
+                        createMobileGrid();
+
+                }
+
+                if($( window ).width() >= 768) {
+
+                        createGrid();
+
+                }
+
+
+            });
+
+
 
     function changeColor(color) {
 
 
         $(".blue").on("mousemove", function() {
-
-        	color = "red"; 
 
             $(this).addClass("black");
             $(".black").css({
@@ -95,6 +111,11 @@ $(document).ready(function() {
     }
 
     function createGrid(size) {
+
+     var size = 17;
+     var size = size;
+     var area = 500;
+
 
         $(".blue").remove();
 
@@ -120,7 +141,7 @@ $(document).ready(function() {
             "float": "left",
             "display": "inline",
             "vertical-align": "top",
-            "border": "1px solid #83993e"
+            "border": "1px solid #fff"
         });
 
 
@@ -128,13 +149,13 @@ $(document).ready(function() {
     }
 
 
-    createGrid(size);
+    createGrid();
 
     $(".left").on("click", function() {
         $(this).parent().find(".black").removeClass("black");
         $(".blue").css({
             "background-color": "#adcc51",
-            "border": "1px solid #83993e"
+            "border": "1px solid #fff"
         });
         alert("Shake Shake Shake!");
     });
@@ -171,9 +192,6 @@ $(document).ready(function() {
           alert("Try a whole number between 1 and 5");
         }
 
-
-
-
     });
 
   /* Jquery Media Queries */
@@ -182,37 +200,25 @@ $(document).ready(function() {
 if (window.matchMedia('(min-width: 1px) and (max-width: 768px').matches)
 
 {
-    $("h1").css('font-size', "2em");
-    $(".screen").css('width', "60%");
-    $(".wrapper").css('margin-top', "125px");
-    /* Hiding original buttons & creating new mobile friendly buttons */
+
+    var buttonLeft2 = "<li><a class='leftTwo font' href='#''>Change Color</a></li>";
+    var buttonLeft = "<li><a class='left font' href='#'>Clear Color</a></li>";
+    var buttonRight2 = "<li><a class='right2 font clearLeft' href='#'>Change Block Spacing</a></li>";
+    var buttonRight = "<li><a class='right font clearLeft' href='#'>Change Block Size</a></li>";
+
+    /* Hiding original buttons & creating new mobile buttons so the previously attached functions are removed */
     $(".left").hide();
-    $('html').prepend(buttonLeft);
-    $(".left").css('top',"115px");
-    $(".left").css('left',"70px");
+    $('.dropdown-menu').prepend(buttonLeft);
     $(".right").hide();
-    $('html').prepend(buttonRight);
-    $(".right").css('top',"115px");
-    $(".right").css('left',"-40px");
+    $('.dropdown-menu').prepend(buttonRight);
     $(".leftTwo").hide();
-    $('html').prepend(buttonLeft2);
-    $(".leftTwo").css('top',"115px");
-    $(".leftTwo").css('left',"100px");
+    $('.dropdown-menu').prepend(buttonLeft2);
     $(".right2").hide();
-    $('html').prepend(buttonRight2);
-    $(".right2").css('top',"115px");
-    $(".right2").css('left',"90px");
+    $('.dropdown-menu').prepend(buttonRight2);
 
-/* Changing our div blue class,variables so the blocks on mobile fit */
+/* Mobile Functions */
 
-var size = 20;
-var area = 200;
-$(".blue").css('height',"1px");
-$(".blue").css('width',"1px");
-
-/* Recreating functions so the mobile friendly buttons work */
-
-    function changeColor(color) {
+    function changeMobileColor(color) {
 
 
         $(".blue").on("mousemove", function() {
@@ -225,7 +231,13 @@ $(".blue").css('width',"1px");
 
     }
 
-    function createGrid(size) {
+    function createMobileGrid(size) {
+
+        console.log("Mobile Grid Function Ran.");
+        
+        var size = 20;
+        var size = size;
+        var area = 200;
 
         $(".blue").remove();
 
@@ -251,7 +263,7 @@ $(".blue").css('width',"1px");
             "float": "left",
             "display": "inline",
             "vertical-align": "top",
-            "border": "1px solid #83993e"
+            "border": "1px solid #fff"
         });
 
 
@@ -259,13 +271,13 @@ $(".blue").css('width',"1px");
     }
 
 
-    createGrid(size);
+    createMobileGrid();
 
     $(".left").on("click", function() {
         $(this).parent().find(".black").removeClass("black");
         $(".blue").css({
             "background-color": "#adcc51",
-            "border": "1px solid #83993e"
+            "border": "1px solid #fff"
         });
         alert("Shake Shake Shake!");
     });
@@ -274,7 +286,7 @@ $(".blue").css('width',"1px");
     $(".right").on("click", function() {
         var newSize = prompt("How many squares across?");
         if (newSize > 1 && newSize < 16) {
-            createGrid(newSize);
+            createMobileGrid(newSize);
         } else {
             alert("Try a whole number between 1 - 15");
         }
@@ -284,7 +296,7 @@ $(".blue").css('width',"1px");
     $(".leftTwo").on("click", function() {
         var newColor = prompt("You're catching on! What color do you want?");
 
-        changeColor(newColor);
+        changeMobileColor(newColor);
 
     });
 
@@ -303,7 +315,6 @@ $(".blue").css('width',"1px");
 
     });
 
-    $(".blue").remove();
 }
 
 if (window.matchMedia('(min-width: 640px)').matches)
@@ -322,8 +333,6 @@ if (window.matchMedia('(min-width: 768px)').matches)
 if (window.matchMedia('(min-width: 1000px)').matches)
 {
     // do functionality on screens larger than 999px
-    $(".wrapper").css('bottom',"190px");
-    $(".right2").css('bottom',"48px");
 
 }
 	
